@@ -1,23 +1,28 @@
 {
-  "name": "Java",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-  "features": {
-    "ghcr.io/devcontainers/features/java:1": {
-      "version": "21-oracle",
-      "jdkDistro": "oracle"
-    },
-    "ghcr.io/devcontainers/features/azure-cli:1": {},
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+  "name": "Spring PetClinic (Java 17)",
+  "image": "mcr.microsoft.com/devcontainers/java:1-17-bookworm",
+
+  "postCreateCommand": "./mvnw -B -q -DskipTests package",
+
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": {
+      "label": "PetClinic",
+      "onAutoForward": "notify"
+    }
   },
 
   "customizations": {
     "vscode": {
-      "settings": {},
+      "settings": {
+        "java.import.gradle.enabled": false,
+        "java.import.maven.enabled": true,
+        "java.configuration.updateBuildConfiguration": "automatic",
+        "java.server.launchMode": "Standard"
+      },
       "extensions": [
-        "redhat.vscode-xml",
-        "visualstudioexptteam.vscodeintellicode",
-        "vscjava.vscode-java-pack"
+        "vscjava.vscode-java-pack",
+        "redhat.vscode-xml"
       ]
     }
   },
